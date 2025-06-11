@@ -14,7 +14,6 @@ export default function PaycheckCalculator() {
   const [netPay, setNetPay] = useState(null);
 
   const stateTaxRates = {
-   const stateTaxRates = {
   AL: 5.0,
   AK: 0.0,
   AZ: 4.2,
