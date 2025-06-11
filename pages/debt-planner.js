@@ -43,7 +43,9 @@ export default function DebtPlanner() {
   <meta name="description" content="Calculate your debt payoff perid." />
 </Head>
 
-
+<main>
+        {/* Your homepage content here */}
+      </main>
       <Navbar />
       <div className="p-5 max-w-md mx-auto">
         <h1 className="text-3xl font-bold mb-6">Debt Planner</h1>
