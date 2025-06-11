@@ -11,8 +11,8 @@ export default function Document() {
         <meta property="og:title" content="EyeOnFinance - See your money clearly" />
         <meta property="og:description" content="Plan your paycheck, track debt, and reach your savings goals." />
         <meta property="og:image" content="/og-image.png" /> {/* Optional: if you add an Open Graph image */}
-        <meta property="og:url" content="my-finance-site-new.vercel.app" />
- />
+        <meta property="og:url" content="http://my-finance-site-new.vercel.app" />
+ 
       </Head>
       <body>
         <Main />
