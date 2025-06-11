@@ -27,7 +27,7 @@ export default function Home() {
 
       <Navbar />
       <div className="p-5 max-w-2xl mx-auto text-center">
-        <h1 className="text-4xl font-bold mb-6">Welcome to Finance Tools/h1>
+        <h1 className="text-4xl font-bold mb-6">Welcome to Finance Tools</h1>
         <p className="text-lg mb-8">
           Use the tools below to plan your finances, manage debt, and achieve your savings goals.
         </p>
