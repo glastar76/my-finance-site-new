@@ -29,7 +29,9 @@ export default function SavingsGoals() {
   <meta name="description" content="Calculate the time it will take to meet your savings goal." />
 </Head>
 
-
+<main>
+        {/* Your homepage content here */}
+      </main>
       <Navbar />
       <div className="p-5 max-w-md mx-auto">
         <h1 className="text-3xl font-bold mb-6">Savings Goals</h1>
