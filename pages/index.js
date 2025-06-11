@@ -8,10 +8,17 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <>
-    <Head>
-      <title>EyeOnFinance - Paycheck Calculator</title>
-      <meta name="Finance Tools" content="Calculate your net paycheck after taxes. See your money clearly with EyeOnFinance." />
-    </Head>
+   <Head>
+  <title>EyeOnFinance - Personal Finance Tools</title>
+  <meta name="description" content="See your money clearly with EyeOnFinance. Plan your paycheck, manage debt, and grow savings." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EyeOnFinance" />
+  <meta property="og:title" content="EyeOnFinance - Personal Finance Tools" />
+  <meta property="og:description" content="See your money clearly with EyeOnFinance. Plan your paycheck, manage debt, and grow savings." />
+  <meta property="og:image" content="/og-image.png" />
+  <meta property="og:url" content="https://my-finance-site-new.vercel.app/" />
+</Head>
+
     
     {/* Your page content here */}
   </>
