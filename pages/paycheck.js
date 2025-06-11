@@ -1,78 +1,231 @@
-import Head from 'next/head';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
-
 import { useState } from 'react';
+import Head from 'next/head';
 
-export default function Paycheck() {
-  const [grossPay, setGrossPay] = useState('');
-  const [taxRate, setTaxRate] = useState('');
+export default function PaycheckCalculator() {
+  const [payType, setPayType] = useState('salary');
+  const [annualSalary, setAnnualSalary] = useState(0);
+  const [hourlyRate, setHourlyRate] = useState(0);
+  const [hoursWorked, setHoursWorked] = useState(0);
+  const [overtimeHours, setOvertimeHours] = useState(0);
+  const [state, setState] = useState('CA');
+  const [filingStatus, setFilingStatus] = useState('single');
+  const [k401, setK401] = useState(0);
+  const [otherDeductions, setOtherDeductions] = useState(0);
   const [netPay, setNetPay] = useState(null);
 
-  const handleCalculate = (e) => {
-    e.preventDefault();
-    const net = grossPay * (1 - taxRate / 100);
-    setNetPay(net.toFixed(2));
+  const stateTaxRates = {
+    AL: 5.0,
+    AK: 0.0,
+    AZ: 4.2,
+    AR: 5.5,
+    CA: 9.3,
+    NY: 6.33,
+    TX: 0.0,
+    FL: 0.0,
+    // Add full list here!
+  };
+
+  const calculateFederalTax = (income) => {
+    // Example 2024 Single brackets — expand as needed
+    const brackets = [
+      { limit: 11600, rate: 0.10 },
+      { limit: 47150, rate: 0.12 },
+      { limit: 100525, rate: 0.22 },
+      { limit: 191950, rate: 0.24 },
+      { limit: 243725, rate: 0.32 },
+      { limit: 609350, rate: 0.35 },
+      { limit: Infinity, rate: 0.37 },
+    ];
+
+    // TODO: Different brackets for Married, Head of Household
+
+    let tax = 0;
+    let previousLimit = 0;
+
+    for (const bracket of brackets) {
+      if (income > bracket.limit) {
+        tax += (bracket.limit - previousLimit) * bracket.rate;
+        previousLimit = bracket.limit;
+      } else {
+        tax += (income - previousLimit) * bracket.rate;
+        break;
+      }
+    }
+
+    return tax;
+  };
+
+  const handleCalculate = () => {
+    // Calculate Gross Pay per pay period
+    let grossPay = 0;
+
+    if (payType === 'salary') {
+      // Example: bi-weekly pay → 26 periods/year
+      grossPay = annualSalary / 26;
+    } else {
+      const regularPay = hourlyRate * hoursWorked;
+      const overtimePay = overtimeHours * hourlyRate * 1.5;
+      grossPay = regularPay + overtimePay;
+    }
+
+    // Annualize income for Federal Tax calc:
+    const annualIncome =
+      payType === 'salary'
+        ? annualSalary
+        : grossPay * 26; // assuming bi-weekly pay period
+
+    const federalTax = calculateFederalTax(annualIncome) / 26; // convert back to per pay period
+    const stateTax = grossPay * (stateTaxRates[state] / 100);
+    const k401Contribution = grossPay * (k401 / 100);
+    const medicareTax = grossPay * 0.0145;
+    const socialSecurityTax = grossPay * 0.062;
+
+    const totalDeductions =
+      federalTax +
+      stateTax +
+      k401Contribution +
+      medicareTax +
+      socialSecurityTax +
+      parseFloat(otherDeductions || 0);
+
+    const netPayResult = grossPay - totalDeductions;
+
+    setNetPay(netPayResult.toFixed(2));
   };
 
   return (
     <>
-<Head>
-  <title>EyeOnFinance - Personal Finance Tools</title>
-  <meta name="description" content="See your money clearly with EyeOnFinance. Plan your paycheck, manage debt, and grow savings." />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="EyeOnFinance" />
-  <meta property="og:title" content="EyeOnFinance - Personal Finance Tools" />
-  <meta property="og:description" content="See your money clearly with EyeOnFinance. Plan your paycheck, manage debt, and grow savings." />
-  <meta property="og:image" content="/og-image.png" />
-  <meta property="og:url" content="https://my-finance-site-new.vercel.app/" />
-</Head>
+      <Head>
+        <title>EyeOnFinance - Paycheck Calculator</title>
+        <meta name="description" content="Advanced paycheck calculator. See your money clearly with EyeOnFinance." />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="EyeOnFinance" />
+        <meta property="og:title" content="EyeOnFinance - Paycheck Calculator" />
+        <meta property="og:description" content="Advanced paycheck calculator. See your money clearly with EyeOnFinance." />
+        <meta property="og:image" content="/og-image.png" />
+        <meta property="og:url" content="https://my-finance-site-new.vercel.app/paycheck" />
+      </Head>
 
-<main>
-        {/* Your homepage content here */}
-      </main>
+      <main className="max-w-xl mx-auto p-4">
+        <h1 className="text-3xl font-bold mb-4">Paycheck Calculator</h1>
 
-      <Navbar />
-      <div className="p-5 max-w-md mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Paycheck Calculator</h1>
-        <form onSubmit={handleCalculate} className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Gross Pay ($):</label>
-            <input
-              type="number"
-              value={grossPay}
-              onChange={(e) => setGrossPay(e.target.value)}
-              required
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium">Estimated Tax Rate (%):</label>
-            <input
-              type="number"
-              value={taxRate}
-              onChange={(e) => setTaxRate(e.target.value)}
-              required
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Pay Type</label>
+          <select
+            value={payType}
+            onChange={(e) => setPayType(e.target.value)}
+            className="border p-2 w-full"
           >
-            Calculate Net Pay
-          </button>
-        </form>
+            <option value="salary">Salary</option>
+            <option value="hourly">Hourly</option>
+          </select>
+        </div>
+
+        {payType === 'salary' ? (
+          <div className="mb-4">
+            <label className="block mb-1 font-semibold">Annual Salary ($)</label>
+            <input
+              type="number"
+              value={annualSalary}
+              onChange={(e) => setAnnualSalary(e.target.value)}
+              className="border p-2 w-full"
+            />
+          </div>
+        ) : (
+          <>
+            <div className="mb-4">
+              <label className="block mb-1 font-semibold">Hourly Rate ($)</label>
+              <input
+                type="number"
+                value={hourlyRate}
+                onChange={(e) => setHourlyRate(e.target.value)}
+                className="border p-2 w-full"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block mb-1 font-semibold">Hours Worked</label>
+              <input
+                type="number"
+                value={hoursWorked}
+                onChange={(e) => setHoursWorked(e.target.value)}
+                className="border p-2 w-full"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block mb-1 font-semibold">Overtime Hours</label>
+              <input
+                type="number"
+                value={overtimeHours}
+                onChange={(e) => setOvertimeHours(e.target.value)}
+                className="border p-2 w-full"
+              />
+            </div>
+          </>
+        )}
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Filing Status</label>
+          <select
+            value={filingStatus}
+            onChange={(e) => setFilingStatus(e.target.value)}
+            className="border p-2 w-full"
+          >
+            <option value="single">Single</option>
+            <option value="married">Married Filing Jointly</option>
+            <option value="head">Head of Household</option>
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">State</label>
+          <select
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+            className="border p-2 w-full"
+          >
+            {Object.keys(stateTaxRates).map((abbr) => (
+              <option key={abbr} value={abbr}>
+                {abbr}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">401(k) Contribution %</label>
+          <input
+            type="number"
+            value={k401}
+            onChange={(e) => setK401(e.target.value)}
+            className="border p-2 w-full"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Other Deductions ($)</label>
+          <input
+            type="number"
+            value={otherDeductions}
+            onChange={(e) => setOtherDeductions(e.target.value)}
+            className="border p-2 w-full"
+          />
+        </div>
+
+        <button
+          onClick={handleCalculate}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Calculate Net Pay
+        </button>
 
         {netPay !== null && (
-          <div className="mt-6 p-4 border rounded bg-gray-50">
-            <h2 className="text-xl font-semibold">Net Pay: ${netPay}</h2>
+          <div className="mt-6 text-xl font-semibold">
+            Net Pay: ${netPay}
           </div>
         )}
-      </div>
-         <Footer />
+      </main>
     </>
   );
 }
