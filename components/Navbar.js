@@ -1,13 +1,23 @@
-export default function Navbar() {
+// pages/_document.js
+import { Html, Head, Main, NextScript } from 'next/document';
+
+export default function Document() {
   return (
-    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center shadow">
-      <div className="font-bold text-2xl tracking-wide">EyeOnFinance</div>
-      <div className="space-x-6 text-lg">
-        <a href="/" className="hover:text-gray-300">Home</a>
-        <a href="/paycheck" className="hover:text-gray-300">Paycheck</a>
-        <a href="/debt-planner" className="hover:text-gray-300">Debt Planner</a>
-        <a href="/savings-goals" className="hover:text-gray-300">Savings Goals</a>
-      </div>
-    </nav>
+    <Html lang="en">
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index, follow" />
+        <meta name="description" content="See your money clearly. EyeOnFinance helps you plan your finances with clarity." />
+        <meta property="og:title" content="EyeOnFinance - See your money clearly" />
+        <meta property="og:description" content="Plan your paycheck, track debt, and reach your savings goals." />
+        <meta property="og:image" content="/og-image.png" />
+        <meta property="og:url" content="https://my-finance-site-new.vercel.app" />
+      </Head>
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
   );
 }
