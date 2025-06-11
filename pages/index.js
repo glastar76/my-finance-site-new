@@ -9,9 +9,13 @@ export default function Home() {
   return (
     <>
     <Head>
-  <title>Finance Tools - Your Personal Finance Hub</title>
-  <meta name="description" content="Plan your finances, manage debt, and reach your savings goals." />
-</Head>
+      <title>EyeOnFinance - Paycheck Calculator</title>
+      <meta name="description" content="Calculate your net paycheck after taxes. See your money clearly with EyeOnFinance." />
+    </Head>
+    
+    {/* Your page content here */}
+  </>
+);
 
 
       <Navbar />
