@@ -17,10 +17,17 @@ export default function Paycheck() {
 
   return (
     <>
- <Head>
-  <title>Finance Tools - Paycheck Calculator</title>
-  <meta name="description" content="Calculate your net paycheck after taxes." />
+<Head>
+  <title>EyeOnFinance - Personal Finance Tools</title>
+  <meta name="description" content="See your money clearly with EyeOnFinance. Plan your paycheck, manage debt, and grow savings." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EyeOnFinance" />
+  <meta property="og:title" content="EyeOnFinance - Personal Finance Tools" />
+  <meta property="og:description" content="See your money clearly with EyeOnFinance. Plan your paycheck, manage debt, and grow savings." />
+  <meta property="og:image" content="/og-image.png" />
+  <meta property="og:url" content="https://my-finance-site-new.vercel.app/" />
 </Head>
+
 <main>
         {/* Your homepage content here */}
       </main>
