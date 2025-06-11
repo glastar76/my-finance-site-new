@@ -10,7 +10,7 @@ export default function Home() {
     <>
     <Head>
       <title>EyeOnFinance - Paycheck Calculator</title>
-      <meta name="description" content="Calculate your net paycheck after taxes. See your money clearly with EyeOnFinance." />
+      <meta name="Finance Tools" content="Calculate your net paycheck after taxes. See your money clearly with EyeOnFinance." />
     </Head>
     
     {/* Your page content here */}
