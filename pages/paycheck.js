@@ -21,7 +21,9 @@ export default function Paycheck() {
   <title>Finance Tools - Paycheck Calculator</title>
   <meta name="description" content="Calculate your net paycheck after taxes." />
 </Head>
-
+<main>
+        {/* Your homepage content here */}
+      </main>
 
       <Navbar />
       <div className="p-5 max-w-md mx-auto">
