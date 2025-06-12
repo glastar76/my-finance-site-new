@@ -101,6 +101,10 @@ export default function PaycheckCalculator() {
 
       <main className="max-w-xl mx-auto p-4">
         <h1 className="text-3xl font-bold mb-4 text-primary">Paycheck Calculator</h1>
+    <Link href="/" legacyBehavior>
+  <a className="text-primary underline text-sm mb-4 inline-block">← Back to Home</a>
+</Link>
+
         <p className="text-lg mb-6 text-gray-600">
           Enter your pay details below to calculate your net pay.
         </p>
