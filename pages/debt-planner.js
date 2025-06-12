@@ -18,7 +18,7 @@ export default function DebtPlanner() {
 
       <Navbar />
 <main>
-        import { useState } from 'react';
+        
 import Head from 'next/head';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
