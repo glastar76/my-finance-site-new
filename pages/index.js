@@ -20,34 +20,36 @@ export default function Home() {
 
       <Navbar />
 
-      <main className="p-6 max-w-2xl mx-auto text-center">
-        <h1 className="text-4xl font-bold mb-6 text-primary">Welcome to EyeOnFinance</h1>
-        <p className="text-lg mb-8 text-gray-600">
-          Use our tools to plan your finances, manage debt, and achieve your savings goals. 
-          Take control and see your money clearly.
-        </p>
+   <main className="flex flex-col items-center justify-center min-h-screen px-4 py-12 bg-white text-gray-900">
+  <h1 className="text-5xl font-extrabold mb-6 text-center">
+    Welcome to <span className="text-blue-600">EyeOnFinance</span>
+  </h1>
 
-       <div className="flex flex-col space-y-4">
-  <Link href="/paycheck" legacyBehavior>
-    <a className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 text-lg font-semibold text-center">
-      Go to Paycheck Calculator
-    </a>
-  </Link>
-  
-  <Link href="/debt-planner" legacyBehavior>
-    <a className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 text-lg font-semibold text-center">
-      Go to Debt Planner
-    </a>
-  </Link>
-  
-  <Link href="/savings-goals" legacyBehavior>
-    <a className="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 text-lg font-semibold text-center">
-      Go to Savings Goals
-    </a>
-  </Link>
-</div>
+  <p className="text-lg text-gray-600 mb-10 text-center max-w-xl">
+    Plan your paycheck, track your debt, and achieve your savings goals — all in one place.
+  </p>
 
-      </main>
+  <div className="flex flex-col space-y-4 w-full max-w-xs">
+    <Link href="/paycheck" legacyBehavior>
+      <a className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 text-lg font-semibold text-center">
+        Go to Paycheck Calculator
+      </a>
+    </Link>
+    
+    <Link href="/debt-planner" legacyBehavior>
+      <a className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 text-lg font-semibold text-center">
+        Go to Debt Planner
+      </a>
+    </Link>
+    
+    <Link href="/savings-goals" legacyBehavior>
+      <a className="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 text-lg font-semibold text-center">
+        Go to Savings Goals
+      </a>
+    </Link>
+  </div>
+</main>
+
 
       <Footer />
     </>
