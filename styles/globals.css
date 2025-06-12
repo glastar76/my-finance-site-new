@@ -53,3 +53,17 @@ input:focus, select:focus {
   border-color: #2563eb;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
 }
+:root {
+  --color-primary: #2563eb; /* nice blue */
+  --color-primary-dark: #1e40af; /* darker blue for hover */
+}
+
+/* Optional: you can add text and bg helpers */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.hover\:bg-primary-dark:hover {
+  background-color: var(--color-primary-dark);
+}
+
