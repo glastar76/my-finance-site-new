@@ -1,27 +1,8 @@
+// pages/debt-planner.js
 import Head from 'next/head';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-
-export default function DebtPlanner() {
-  return (
-    <>
-      <Head>
-        <title>EyeOnFinance - Debt Planner</title>
-        <meta name="description" content="Plan your debt repayment strategy. See your money clearly with EyeOnFinance." />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="EyeOnFinance" />
-        <meta property="og:title" content="EyeOnFinance - Debt Planner" />
-        <meta property="og:description" content="Plan your debt repayment strategy. See your money clearly with EyeOnFinance." />
-        <meta property="og:image" content="/og-image.png" />
-        <meta property="og:url" content="https://my-finance-site-new.vercel.app/debt-planner" />
-      </Head>
-
-      <Navbar />
-<main>
-        
-import Head from 'next/head';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import { useState } from 'react';
 
 export default function DebtPlanner() {
   const [debts, setDebts] = useState([]);
@@ -65,17 +46,11 @@ export default function DebtPlanner() {
       let months = 0;
 
       while (remainingBalance > 0) {
-        // Interest for this month
         const monthlyInterest = (debt.interestRate / 100 / 12) * remainingBalance;
-
-        // Pay at least min payment or remaining balance + interest
         const payment = Math.min(debt.minPayment, remainingBalance + monthlyInterest);
-
-        // Update remaining balance
         remainingBalance = remainingBalance + monthlyInterest - payment;
-
         months++;
-        if (months > 600) break; // prevent infinite loop in weird cases
+        if (months > 600) break; // prevent infinite loop
       }
 
       return {
@@ -104,9 +79,7 @@ export default function DebtPlanner() {
 
       <main className="max-w-xl mx-auto p-4">
         <h1 className="text-3xl font-bold mb-4">Debt Planner</h1>
-        <p className="text-lg mb-6">
-          Enter your debts below and choose a payoff strategy.
-        </p>
+        <p className="text-lg mb-6">Enter your debts below and choose a payoff strategy.</p>
 
         <div className="space-y-4 mb-6">
           <input
@@ -150,10 +123,7 @@ export default function DebtPlanner() {
             <h2 className="text-2xl font-semibold mb-4">Your Debts</h2>
             <ul className="space-y-2 mb-6">
               {debts.map((debt, index) => (
-                <li
-                  key={index}
-                  className="border p-4 rounded bg-gray-50"
-                >
+                <li key={index} className="border p-4 rounded bg-gray-50">
                   <p className="font-bold">{debt.name}</p>
                   <p>Balance: ${debt.balance.toFixed(2)}</p>
                   <p>Interest Rate: {debt.interestRate}%</p>
@@ -201,14 +171,6 @@ export default function DebtPlanner() {
             </div>
           </>
         )}
-      </main>
-
-      <Footer />
-    </>
-  );
-}
-
-        {/* You can build your Debt Planner form here */}
       </main>
 
       <Footer />
