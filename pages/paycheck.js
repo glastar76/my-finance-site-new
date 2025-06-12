@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import Navbar from "Navbar.js;
+import Navbar from '../components/Navbar';
 export default function PaycheckCalculator() {
   const [payType, setPayType] = useState('salary');
   const [annualSalary, setAnnualSalary] = useState(0);
