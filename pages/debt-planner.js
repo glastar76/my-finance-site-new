@@ -17,9 +17,7 @@ export default function DebtPlanner() {
       </Head>
 
       <Navbar />
-
-      <main className="max-w-xl mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-4">Debt Planner</h1>
+<main>
         import { useState } from 'react';
 import Head from 'next/head';
 import Navbar from '../components/Navbar';
