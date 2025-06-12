@@ -118,35 +118,7 @@ const calculateFederalTax = (income, filingStatus) => {
   return tax;
 };
 
-  const calculateFederalTax = (income) => {
-    // Example 2024 Single brackets — expand as needed
-    const brackets = [
-      { limit: 11600, rate: 0.10 },
-      { limit: 47150, rate: 0.12 },
-      { limit: 100525, rate: 0.22 },
-      { limit: 191950, rate: 0.24 },
-      { limit: 243725, rate: 0.32 },
-      { limit: 609350, rate: 0.35 },
-      { limit: Infinity, rate: 0.37 },
-    ];
-
-    // TODO: Different brackets for Married, Head of Household
-
-    let tax = 0;
-    let previousLimit = 0;
-
-    for (const bracket of brackets) {
-      if (income > bracket.limit) {
-        tax += (bracket.limit - previousLimit) * bracket.rate;
-        previousLimit = bracket.limit;
-      } else {
-        tax += (income - previousLimit) * bracket.rate;
-        break;
-      }
-    }
-
-    return tax;
-  };
+ 
 
   const handleCalculate = () => {
     // Calculate Gross Pay per pay period
@@ -167,7 +139,7 @@ const calculateFederalTax = (income, filingStatus) => {
         ? annualSalary
         : grossPay * 26; // assuming bi-weekly pay period
 
-    const federalTax = calculateFederalTax(annualIncome) / 26; // convert back to per pay period
+    const federalTax = calculateFederalTax(annualIncome, filingStatus) / 26; // convert back to per pay period
     const stateTax = grossPay * (stateTaxRates[state] / 100);
     const k401Contribution = grossPay * (k401 / 100);
     const medicareTax = grossPay * 0.0145;
@@ -321,4 +293,3 @@ const calculateFederalTax = (income, filingStatus) => {
       </main>
     </>
   );
-}
