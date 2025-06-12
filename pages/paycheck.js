@@ -14,118 +14,66 @@ export default function PaycheckCalculator() {
   const [netPay, setNetPay] = useState(null);
 
   const stateTaxRates = {
-  AL: 5.0,
-  AK: 0.0,
-  AZ: 4.2,
-  AR: 5.5,
-  CA: 9.3,
-  CO: 4.55,
-  CT: 6.99,
-  DE: 6.6,
-  FL: 0.0,
-  GA: 5.75,
-  HI: 8.25,
-  ID: 6.0,
-  IL: 4.95,
-  IN: 3.23,
-  IA: 6.0,
-  KS: 5.7,
-  KY: 5.0,
-  LA: 4.25,
-  ME: 7.15,
-  MD: 5.75,
-  MA: 5.0,
-  MI: 4.25,
-  MN: 6.8,
-  MS: 5.0,
-  MO: 4.95,
-  MT: 6.75,
-  NE: 6.64,
-  NV: 0.0,
-  NH: 0.0,
-  NJ: 6.37,
-  NM: 5.9,
-  NY: 6.33,
-  NC: 4.75,
-  ND: 2.9,
-  OH: 3.99,
-  OK: 4.75,
-  OR: 9.9,
-  PA: 3.07,
-  RI: 5.99,
-  SC: 6.5,
-  SD: 0.0,
-  TN: 0.0,
-  TX: 0.0,
-  UT: 4.85,
-  VT: 6.6,
-  VA: 5.75,
-  WA: 0.0,
-  WV: 6.5,
-  WI: 5.3,
-  WY: 0.0,
-  DC: 8.5
-};
-
-    // Add full list here!
+    AL: 5.0, AK: 0.0, AZ: 4.2, AR: 5.5, CA: 9.3, CO: 4.55, CT: 6.99, DE: 6.6, FL: 0.0,
+    GA: 5.75, HI: 8.25, ID: 6.0, IL: 4.95, IN: 3.23, IA: 6.0, KS: 5.7, KY: 5.0, LA: 4.25,
+    ME: 7.15, MD: 5.75, MA: 5.0, MI: 4.25, MN: 6.8, MS: 5.0, MO: 4.95, MT: 6.75, NE: 6.64,
+    NV: 0.0, NH: 0.0, NJ: 6.37, NM: 5.9, NY: 6.33, NC: 4.75, ND: 2.9, OH: 3.99, OK: 4.75,
+    OR: 9.9, PA: 3.07, RI: 5.99, SC: 6.5, SD: 0.0, TN: 0.0, TX: 0.0, UT: 4.85, VT: 6.6,
+    VA: 5.75, WA: 0.0, WV: 6.5, WI: 5.3, WY: 0.0, DC: 8.5
   };
-const federalTaxBrackets = {
-  single: [
-    { limit: 11600, rate: 0.10 },
-    { limit: 47150, rate: 0.12 },
-    { limit: 100525, rate: 0.22 },
-    { limit: 191950, rate: 0.24 },
-    { limit: 243725, rate: 0.32 },
-    { limit: 609350, rate: 0.35 },
-    { limit: Infinity, rate: 0.37 },
-  ],
-  married: [
-    { limit: 23200, rate: 0.10 },
-    { limit: 94300, rate: 0.12 },
-    { limit: 201050, rate: 0.22 },
-    { limit: 383900, rate: 0.24 },
-    { limit: 487450, rate: 0.32 },
-    { limit: 731200, rate: 0.35 },
-    { limit: Infinity, rate: 0.37 },
-  ],
-  head: [
-    { limit: 16550, rate: 0.10 },
-    { limit: 63100, rate: 0.12 },
-    { limit: 100500, rate: 0.22 },
-    { limit: 191950, rate: 0.24 },
-    { limit: 243700, rate: 0.32 },
-    { limit: 609350, rate: 0.35 },
-    { limit: Infinity, rate: 0.37 },
-  ],
-};
 
-const calculateFederalTax = (income, filingStatus) => {
-  const brackets = federalTaxBrackets[filingStatus];
+  const federalTaxBrackets = {
+    single: [
+      { limit: 11600, rate: 0.10 },
+      { limit: 47150, rate: 0.12 },
+      { limit: 100525, rate: 0.22 },
+      { limit: 191950, rate: 0.24 },
+      { limit: 243725, rate: 0.32 },
+      { limit: 609350, rate: 0.35 },
+      { limit: Infinity, rate: 0.37 },
+    ],
+    married: [
+      { limit: 23200, rate: 0.10 },
+      { limit: 94300, rate: 0.12 },
+      { limit: 201050, rate: 0.22 },
+      { limit: 383900, rate: 0.24 },
+      { limit: 487450, rate: 0.32 },
+      { limit: 731200, rate: 0.35 },
+      { limit: Infinity, rate: 0.37 },
+    ],
+    head: [
+      { limit: 16550, rate: 0.10 },
+      { limit: 63100, rate: 0.12 },
+      { limit: 100500, rate: 0.22 },
+      { limit: 191950, rate: 0.24 },
+      { limit: 243700, rate: 0.32 },
+      { limit: 609350, rate: 0.35 },
+      { limit: Infinity, rate: 0.37 },
+    ],
+  };
 
-  let tax = 0;
-  let previousLimit = 0;
+  const calculateFederalTax = (income, filingStatus) => {
+    const brackets = federalTaxBrackets[filingStatus];
+    let tax = 0;
+    let previousLimit = 0;
 
-  for (const bracket of brackets) {
-    if (income > bracket.limit) {
-      tax += (bracket.limit - previousLimit) * bracket.rate;
-      previousLimit = bracket.limit;
-    } else {
-      tax += (income - previousLimit) * bracket.rate;
-      break;
+    for (const bracket of brackets) {
+      if (income > bracket.limit) {
+        tax += (bracket.limit - previousLimit) * bracket.rate;
+        previousLimit = bracket.limit;
+      } else {
+        tax += (income - previousLimit) * bracket.rate;
+        break;
+      }
     }
-  }
 
-  return tax;
-};
-
- 
+    return tax;
+  };
 
   const handleCalculate = () => {
-    // Calculate Gross Pay per pay period
     let grossPay = 0;
 
     if (payType === 'salary') {
-      // Example: bi-weekly pay → 26 periods/year
       grossPay = annualSalary / 26;
     } else {
       const regularPay = hourlyRate * hoursWorked;
@@ -133,13 +81,9 @@ const calculateFederalTax = (income, filingStatus) => {
       grossPay = regularPay + overtimePay;
     }
 
-    // Annualize income for Federal Tax calc:
-    const annualIncome =
-      payType === 'salary'
-        ? annualSalary
-        : grossPay * 26; // assuming bi-weekly pay period
+    const annualIncome = payType === 'salary' ? annualSalary : grossPay * 26;
 
-    const federalTax = calculateFederalTax(annualIncome, filingStatus) / 26; // convert back to per pay period
+    const federalTax = calculateFederalTax(annualIncome, filingStatus) / 26;
     const stateTax = grossPay * (stateTaxRates[state] / 100);
     const k401Contribution = grossPay * (k401 / 100);
     const medicareTax = grossPay * 0.0145;
@@ -293,3 +237,4 @@ const calculateFederalTax = (income, filingStatus) => {
       </main>
     </>
   );
+}
