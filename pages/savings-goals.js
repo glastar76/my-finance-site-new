@@ -44,6 +44,11 @@ export default function SavingsGoals() {
     setGoals(updatedGoals);
   };
 
+  const handleDeleteGoal = (index) => {
+    const updatedGoals = goals.filter((_, i) => i !== index);
+    setGoals(updatedGoals);
+  };
+
   return (
     <>
       <Head>
@@ -121,8 +126,14 @@ export default function SavingsGoals() {
                       placeholder="Update Saved Amount"
                       value={goal.savedAmount}
                       onChange={(e) => handleUpdateSavedAmount(index, e.target.value)}
-                      className="border p-2 w-full"
+                      className="border p-2 w-full mb-2"
                     />
+                    <button
+                      onClick={() => handleDeleteGoal(index)}
+                      className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 w-full"
+                    >
+                      Delete Goal
+                    </button>
                   </li>
                 );
               })}
