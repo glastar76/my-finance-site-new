@@ -114,7 +114,7 @@ export default function PaycheckCalculator() {
         <meta property="og:image" content="/og-image.png" />
         <meta property="og:url" content="https://my-finance-site-new.vercel.app/paycheck" />
       </Head>
-
+    </Navbar>
       <main className="max-w-xl mx-auto p-4">
         <h1 className="text-3xl font-bold mb-4">Paycheck Calculator</h1>
 
