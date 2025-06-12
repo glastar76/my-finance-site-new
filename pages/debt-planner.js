@@ -1,8 +1,8 @@
 // pages/debt-planner.js
+import { useState } from 'react';
 import Head from 'next/head';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useState } from 'react';
 
 export default function DebtPlanner() {
   const [debts, setDebts] = useState([]);
@@ -30,6 +30,12 @@ export default function DebtPlanner() {
     setMinPayment('');
   };
 
+  const handleDeleteDebt = (index) => {
+    const updatedDebts = [...debts];
+    updatedDebts.splice(index, 1);
+    setDebts(updatedDebts);
+  };
+
   const calculatePayoffPlan = () => {
     let debtsCopy = [...debts];
 
@@ -50,7 +56,7 @@ export default function DebtPlanner() {
         const payment = Math.min(debt.minPayment, remainingBalance + monthlyInterest);
         remainingBalance = remainingBalance + monthlyInterest - payment;
         months++;
-        if (months > 600) break; // prevent infinite loop
+        if (months > 600) break;
       }
 
       return {
@@ -78,8 +84,10 @@ export default function DebtPlanner() {
       <Navbar />
 
       <main className="max-w-xl mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-4">Debt Planner</h1>
-        <p className="text-lg mb-6">Enter your debts below and choose a payoff strategy.</p>
+        <h1 className="text-3xl font-bold mb-4 text-primary">Debt Planner</h1>
+        <p className="text-lg mb-6 text-gray-600">
+          Enter your debts below and choose a payoff strategy.
+        </p>
 
         <div className="space-y-4 mb-6">
           <input
@@ -87,32 +95,32 @@ export default function DebtPlanner() {
             placeholder="Debt Name"
             value={debtName}
             onChange={(e) => setDebtName(e.target.value)}
-            className="border p-2 w-full"
+            className="border border-primary rounded p-2 w-full"
           />
           <input
             type="number"
             placeholder="Balance ($)"
             value={balance}
             onChange={(e) => setBalance(e.target.value)}
-            className="border p-2 w-full"
+            className="border border-primary rounded p-2 w-full"
           />
           <input
             type="number"
             placeholder="Interest Rate (%)"
             value={interestRate}
             onChange={(e) => setInterestRate(e.target.value)}
-            className="border p-2 w-full"
+            className="border border-primary rounded p-2 w-full"
           />
           <input
             type="number"
             placeholder="Minimum Payment ($)"
             value={minPayment}
             onChange={(e) => setMinPayment(e.target.value)}
-            className="border p-2 w-full"
+            className="border border-primary rounded p-2 w-full"
           />
           <button
             onClick={handleAddDebt}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
+            className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark w-full"
           >
             Add Debt
           </button>
@@ -120,14 +128,23 @@ export default function DebtPlanner() {
 
         {debts.length > 0 && (
           <>
-            <h2 className="text-2xl font-semibold mb-4">Your Debts</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-primary">Your Debts</h2>
             <ul className="space-y-2 mb-6">
               {debts.map((debt, index) => (
-                <li key={index} className="border p-4 rounded bg-gray-50">
+                <li
+                  key={index}
+                  className="border border-gray-300 p-4 rounded bg-blue-50"
+                >
                   <p className="font-bold">{debt.name}</p>
                   <p>Balance: ${debt.balance.toFixed(2)}</p>
                   <p>Interest Rate: {debt.interestRate}%</p>
                   <p>Minimum Payment: ${debt.minPayment.toFixed(2)}</p>
+                  <button
+                    onClick={() => handleDeleteDebt(index)}
+                    className="text-sm text-red-600 hover:underline mt-2"
+                  >
+                    Delete
+                  </button>
                 </li>
               ))}
             </ul>
@@ -137,7 +154,7 @@ export default function DebtPlanner() {
               <select
                 value={strategy}
                 onChange={(e) => setStrategy(e.target.value)}
-                className="border p-2 w-full"
+                className="border border-primary rounded p-2 w-full"
               >
                 <option value="snowball">Snowball (Lowest Balance First)</option>
                 <option value="avalanche">Avalanche (Highest Interest First)</option>
@@ -155,10 +172,10 @@ export default function DebtPlanner() {
 
         {payoffPlan.length > 0 && (
           <>
-            <h2 className="text-2xl font-semibold mb-4">Payoff Plan</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-primary">Payoff Plan</h2>
             <ul className="space-y-2">
               {payoffPlan.map((debt, index) => (
-                <li key={index} className="border p-4 rounded bg-green-50">
+                <li key={index} className="border border-gray-300 p-4 rounded bg-green-50">
                   <p className="font-bold">{debt.name}</p>
                   <p>Estimated Months to Payoff: {debt.monthsToPayoff}</p>
                 </li>
