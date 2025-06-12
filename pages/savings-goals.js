@@ -63,8 +63,7 @@ export default function SavingsGoals() {
       </Head>
 
       <Navbar />
-
-     <main className="max-w-2xl mx-auto p-6">
+<main className="max-w-2xl mx-auto p-6 bg-gray-50 min-h-screen">
   <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800">Savings Goals</h1>
   <p className="text-lg mb-8 text-center text-gray-600">
     Track your goals and visualize your progress.
@@ -94,6 +93,12 @@ export default function SavingsGoals() {
       onChange={(e) => setSavedAmount(e.target.value)}
       className="border border-gray-300 p-3 w-full rounded focus:outline-none focus:ring focus:border-blue-300"
     />
+    <input
+      type="date"
+      value={targetDate}
+      onChange={(e) => setTargetDate(e.target.value)}
+      className="border border-gray-300 p-3 w-full rounded focus:outline-none focus:ring focus:border-blue-300"
+    />
     <button
       onClick={handleAddGoal}
       className="bg-blue-600 text-white px-5 py-3 rounded hover:bg-blue-700 w-full text-lg font-semibold"
@@ -113,25 +118,36 @@ export default function SavingsGoals() {
           return (
             <li
               key={index}
-              className="bg-white shadow p-6 rounded border border-gray-200"
+              className="bg-white shadow p-6 rounded border border-gray-200 transition-transform duration-300 hover:scale-[1.01]"
             >
               <div className="flex justify-between items-center mb-2">
-                <h3 className="text-xl font-bold text-gray-700">{goal.name}</h3>
+                <input
+                  type="text"
+                  value={goal.name}
+                  onChange={(e) => handleUpdateGoalName(index, e.target.value)}
+                  className="text-xl font-bold text-gray-800 border-none outline-none bg-transparent"
+                />
                 <button
                   onClick={() => handleDeleteGoal(index)}
-                  className="text-red-600 hover:text-red-800 text-sm font-semibold"
+                  className="text-red-600 hover:text-red-800 text-lg"
+                  title="Delete Goal"
                 >
-                  Delete
+                  🗑️
                 </button>
               </div>
 
               <p className="text-gray-600 mb-2">
                 Goal: ${goal.goalAmount.toFixed(2)} | Saved: ${goal.savedAmount.toFixed(2)}
               </p>
+              {goal.targetDate && (
+                <p className="text-gray-500 text-sm mb-2">
+                  Target Date: {goal.targetDate}
+                </p>
+              )}
 
               <div className="w-full bg-gray-200 h-5 rounded mb-2 overflow-hidden">
                 <div
-                  className="bg-green-500 h-5 text-xs text-white text-center leading-5"
+                  className="bg-green-500 h-5 text-xs text-white text-center leading-5 transition-all duration-500 ease-in-out"
                   style={{ width: `${progress}%` }}
                 >
                   {progress}%
@@ -152,6 +168,7 @@ export default function SavingsGoals() {
     </>
   )}
 </main>
+
 
 
       <Footer />
