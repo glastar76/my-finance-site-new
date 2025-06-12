@@ -1,4 +1,5 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+// pages/_document.js
+import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
@@ -10,14 +11,13 @@ export default function Document() {
         <meta name="description" content="See your money clearly. EyeOnFinance helps you plan your finances with clarity." />
         <meta property="og:title" content="EyeOnFinance - See your money clearly" />
         <meta property="og:description" content="Plan your paycheck, track debt, and reach your savings goals." />
-        <meta property="og:image" content="/og-image.png" /> {/* Optional: if you add an Open Graph image */}
-        <meta property="og:url" content="http://my-finance-site-new.vercel.app" />
- 
+        <meta property="og:image" content="/og-image.png" />
+        <meta property="og:url" content="https://my-finance-site-new.vercel.app" />
       </Head>
       <body>
         <Main />
         <NextScript />
       </body>
     </Html>
-  )
+  );
 }
