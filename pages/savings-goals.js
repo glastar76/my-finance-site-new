@@ -9,8 +9,9 @@ export default function SavingsGoals() {
   const [goalName, setGoalName] = useState('');
   const [goalAmount, setGoalAmount] = useState('');
   const [savedAmount, setSavedAmount] = useState('');
+  const [targetDate, setTargetDate] = useState('');
 
-  // Load goals from localStorage on page load
+  // Load goals on page load
   useEffect(() => {
     const storedGoals = localStorage.getItem('savingsGoals');
     if (storedGoals) {
@@ -18,16 +19,19 @@ export default function SavingsGoals() {
     }
   }, []);
 
-  // Save goals to localStorage when goals change
+  // Save goals to localStorage when they change
   useEffect(() => {
     localStorage.setItem('savingsGoals', JSON.stringify(goals));
   }, [goals]);
 
   const handleAddGoal = () => {
+    if (!goalName || !goalAmount || !savedAmount) return;
+
     const newGoal = {
       name: goalName,
-      goalAmount: parseFloat(goalAmount),
-      savedAmount: parseFloat(savedAmount),
+      amount: parseFloat(goalAmount),
+      saved: parseFloat(savedAmount),
+      targetDate,
     };
 
     setGoals([...goals, newGoal]);
@@ -36,12 +40,7 @@ export default function SavingsGoals() {
     setGoalName('');
     setGoalAmount('');
     setSavedAmount('');
-  };
-
-  const handleUpdateSavedAmount = (index, newSavedAmount) => {
-    const updatedGoals = [...goals];
-    updatedGoals[index].savedAmount = parseFloat(newSavedAmount);
-    setGoals(updatedGoals);
+    setTargetDate('');
   };
 
   const handleDeleteGoal = (index) => {
@@ -49,129 +48,119 @@ export default function SavingsGoals() {
     setGoals(updatedGoals);
   };
 
+  const handleProgressChange = (index, newSavedAmount) => {
+    const updatedGoals = [...goals];
+    updatedGoals[index].saved = parseFloat(newSavedAmount);
+    setGoals(updatedGoals);
+  };
+
   return (
     <>
       <Head>
         <title>EyeOnFinance - Savings Goals</title>
-        <meta name="description" content="Track your savings goals and progress. See your money clearly with EyeOnFinance." />
+        <meta name="description" content="Track your savings goals and progress with EyeOnFinance." />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="EyeOnFinance" />
         <meta property="og:title" content="EyeOnFinance - Savings Goals" />
-        <meta property="og:description" content="Track your savings goals and progress. See your money clearly with EyeOnFinance." />
+        <meta property="og:description" content="Track your savings goals and progress with EyeOnFinance." />
         <meta property="og:image" content="/og-image.png" />
         <meta property="og:url" content="https://my-finance-site-new.vercel.app/savings-goals" />
       </Head>
 
       <Navbar />
-<main className="max-w-2xl mx-auto p-6 bg-gray-50 min-h-screen">
-  <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800">Savings Goals</h1>
-  <p className="text-lg mb-8 text-center text-gray-600">
-    Track your goals and visualize your progress.
-  </p>
 
-  {/* Add Goal Form */}
-  <div className="space-y-4 bg-white shadow rounded p-6 mb-8 border border-gray-200">
-    <h2 className="text-2xl font-semibold text-gray-700 mb-4">Add New Goal</h2>
-    <input
-      type="text"
-      placeholder="Goal Name"
-      value={goalName}
-      onChange={(e) => setGoalName(e.target.value)}
-      className="border border-gray-300 p-3 w-full rounded focus:outline-none focus:ring focus:border-blue-300"
-    />
-    <input
-      type="number"
-      placeholder="Goal Amount ($)"
-      value={goalAmount}
-      onChange={(e) => setGoalAmount(e.target.value)}
-      className="border border-gray-300 p-3 w-full rounded focus:outline-none focus:ring focus:border-blue-300"
-    />
-    <input
-      type="number"
-      placeholder="Current Saved Amount ($)"
-      value={savedAmount}
-      onChange={(e) => setSavedAmount(e.target.value)}
-      className="border border-gray-300 p-3 w-full rounded focus:outline-none focus:ring focus:border-blue-300"
-    />
-    <input
-      type="date"
-      value={targetDate}
-      onChange={(e) => setTargetDate(e.target.value)}
-      className="border border-gray-300 p-3 w-full rounded focus:outline-none focus:ring focus:border-blue-300"
-    />
-    <button
-      onClick={handleAddGoal}
-      className="bg-blue-600 text-white px-5 py-3 rounded hover:bg-blue-700 w-full text-lg font-semibold"
-    >
-      Add Goal
-    </button>
-  </div>
+      <main className="max-w-xl mx-auto p-4">
+        <h1 className="text-3xl font-bold mb-4">Savings Goals</h1>
+        <p className="text-lg mb-6">Enter your savings goals and track your progress.</p>
 
-  {/* Goals List */}
-  {goals.length > 0 && (
-    <>
-      <h2 className="text-3xl font-bold mb-6 text-gray-800">Your Goals</h2>
-      <ul className="space-y-6">
-        {goals.map((goal, index) => {
-          const progress = Math.min((goal.savedAmount / goal.goalAmount) * 100, 100).toFixed(1);
+        <div className="space-y-4 mb-6">
+          <input
+            type="text"
+            placeholder="Goal Name"
+            value={goalName}
+            onChange={(e) => setGoalName(e.target.value)}
+            className="border p-2 w-full"
+          />
+          <input
+            type="number"
+            placeholder="Goal Amount ($)"
+            value={goalAmount}
+            onChange={(e) => setGoalAmount(e.target.value)}
+            className="border p-2 w-full"
+          />
+          <input
+            type="number"
+            placeholder="Saved Amount ($)"
+            value={savedAmount}
+            onChange={(e) => setSavedAmount(e.target.value)}
+            className="border p-2 w-full"
+          />
+          <input
+            type="date"
+            placeholder="Target Date (optional)"
+            value={targetDate}
+            onChange={(e) => setTargetDate(e.target.value)}
+            className="border p-2 w-full"
+          />
+          <button
+            onClick={handleAddGoal}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
+          >
+            Add Goal
+          </button>
+        </div>
 
-          return (
-            <li
-              key={index}
-              className="bg-white shadow p-6 rounded border border-gray-200 transition-transform duration-300 hover:scale-[1.01]"
-            >
-              <div className="flex justify-between items-center mb-2">
-                <input
-                  type="text"
-                  value={goal.name}
-                  onChange={(e) => handleUpdateGoalName(index, e.target.value)}
-                  className="text-xl font-bold text-gray-800 border-none outline-none bg-transparent"
-                />
-                <button
-                  onClick={() => handleDeleteGoal(index)}
-                  className="text-red-600 hover:text-red-800 text-lg"
-                  title="Delete Goal"
-                >
-                  🗑️
-                </button>
-              </div>
+        {goals.length > 0 && (
+          <>
+            <h2 className="text-2xl font-semibold mb-4">Your Goals</h2>
+            <ul className="space-y-4">
+              {goals.map((goal, index) => {
+                const progressPercent = Math.min((goal.saved / goal.amount) * 100, 100).toFixed(0);
+                return (
+                  <li
+                    key={index}
+                    className="border p-4 rounded bg-gray-50"
+                  >
+                    <p className="font-bold text-lg mb-1">{goal.name}</p>
+                    <p className="mb-1">Goal: ${goal.amount.toFixed(2)}</p>
+                    <p className="mb-1">Saved: ${goal.saved.toFixed(2)} ({progressPercent}%)</p>
+                    {goal.targetDate && (
+                      <p className="mb-2 text-sm text-gray-600">Target Date: {goal.targetDate}</p>
+                    )}
 
-              <p className="text-gray-600 mb-2">
-                Goal: ${goal.goalAmount.toFixed(2)} | Saved: ${goal.savedAmount.toFixed(2)}
-              </p>
-              {goal.targetDate && (
-                <p className="text-gray-500 text-sm mb-2">
-                  Target Date: {goal.targetDate}
-                </p>
-              )}
+                    {/* Progress Bar */}
+                    <div className="w-full bg-gray-300 rounded h-3 mb-3">
+                      <div
+                        className="bg-green-500 h-3 rounded"
+                        style={{ width: `${progressPercent}%` }}
+                      ></div>
+                    </div>
 
-              <div className="w-full bg-gray-200 h-5 rounded mb-2 overflow-hidden">
-                <div
-                  className="bg-green-500 h-5 text-xs text-white text-center leading-5 transition-all duration-500 ease-in-out"
-                  style={{ width: `${progress}%` }}
-                >
-                  {progress}%
-                </div>
-              </div>
-
-              <input
-                type="number"
-                placeholder="Update Saved Amount"
-                value={goal.savedAmount}
-                onChange={(e) => handleUpdateSavedAmount(index, e.target.value)}
-                className="border border-gray-300 p-3 w-full rounded focus:outline-none focus:ring focus:border-blue-300"
-              />
-            </li>
-          );
-        })}
-      </ul>
-    </>
-  )}
-</main>
-
-
+                    {/* Update Progress */}
+                    <div className="flex items-center space-x-2 mb-3">
+                      <input
+                        type="number"
+                        value={goal.saved}
+                        onChange={(e) => handleProgressChange(index, e.target.value)}
+                        className="border p-1 flex-1"
+                      />
+                      <button
+                        onClick={() => handleDeleteGoal(index)}
+                        className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        )}
+      </main>
 
       <Footer />
     </>
   );
 }
+
