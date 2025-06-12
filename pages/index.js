@@ -27,23 +27,26 @@ export default function Home() {
           Take control and see your money clearly.
         </p>
 
-        <div className="flex flex-col space-y-4">
-          <Link href="/paycheck" legacyBehavior>
-            <a className="bg-primary text-white px-6 py-3 rounded hover:bg-primary-dark">
-              Go to Paycheck Calculator
-            </a>
-          </Link>
-          <Link href="/debt-planner" legacyBehavior>
-            <a className="bg-primary text-white px-6 py-3 rounded hover:bg-primary-dark">
-              Go to Debt Planner
-            </a>
-          </Link>
-          <Link href="/savings-goals" legacyBehavior>
-            <a className="bg-primary text-white px-6 py-3 rounded hover:bg-primary-dark">
-              Go to Savings Goals
-            </a>
-          </Link>
-        </div>
+       <div className="flex flex-col space-y-4">
+  <Link href="/paycheck" legacyBehavior>
+    <a className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 text-lg font-semibold text-center">
+      Go to Paycheck Calculator
+    </a>
+  </Link>
+  
+  <Link href="/debt-planner" legacyBehavior>
+    <a className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 text-lg font-semibold text-center">
+      Go to Debt Planner
+    </a>
+  </Link>
+  
+  <Link href="/savings-goals" legacyBehavior>
+    <a className="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 text-lg font-semibold text-center">
+      Go to Savings Goals
+    </a>
+  </Link>
+</div>
+
       </main>
 
       <Footer />
