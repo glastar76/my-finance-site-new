@@ -23,30 +23,21 @@ export default function DebtPlanner() {
 
     setDebts([...debts, newDebt]);
 
-    // Clear form
     setDebtName('');
     setBalance('');
     setInterestRate('');
     setMinPayment('');
   };
 
-  const handleDeleteDebt = (index) => {
-    const newDebts = debts.filter((_, i) => i !== index);
-    setDebts(newDebts);
-    setPayoffPlan([]); // clear plan after debt change
-  };
-
   const calculatePayoffPlan = () => {
     let debtsCopy = [...debts];
 
-    // Sort debts by chosen strategy
     if (strategy === 'snowball') {
       debtsCopy.sort((a, b) => a.balance - b.balance);
     } else if (strategy === 'avalanche') {
       debtsCopy.sort((a, b) => b.interestRate - a.interestRate);
     }
 
-    // Simulate payoff
     const payoffResults = debtsCopy.map((debt) => {
       let remainingBalance = debt.balance;
       let months = 0;
@@ -54,10 +45,10 @@ export default function DebtPlanner() {
       while (remainingBalance > 0) {
         const monthlyInterest = (debt.interestRate / 100 / 12) * remainingBalance;
         const payment = Math.min(debt.minPayment, remainingBalance + monthlyInterest);
-        remainingBalance = remainingBalance + monthlyInterest - payment;
 
+        remainingBalance = remainingBalance + monthlyInterest - payment;
         months++;
-        if (months > 600) break; // safety limit
+        if (months > 600) break;
       }
 
       return {
@@ -73,22 +64,12 @@ export default function DebtPlanner() {
     <>
       <Head>
         <title>EyeOnFinance - Debt Planner</title>
-        <meta name="description" content="Plan your debt repayment strategy. See your money clearly with EyeOnFinance." />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="EyeOnFinance" />
-        <meta property="og:title" content="EyeOnFinance - Debt Planner" />
-        <meta property="og:description" content="Plan your debt repayment strategy. See your money clearly with EyeOnFinance." />
-        <meta property="og:image" content="/og-image.png" />
-        <meta property="og:url" content="https://my-finance-site-new.vercel.app/debt-planner" />
       </Head>
 
       <Navbar />
 
-      <main className="max-w-xl mx-auto p-4">
+      <main className="max-w-xl mx-auto p-4 text-white">
         <h1 className="text-3xl font-bold mb-4">Debt Planner</h1>
-        <p className="text-lg mb-6">
-          Enter your debts below and choose a payoff strategy.
-        </p>
 
         <div className="space-y-4 mb-6">
           <input
@@ -132,17 +113,14 @@ export default function DebtPlanner() {
             <h2 className="text-2xl font-semibold mb-4">Your Debts</h2>
             <ul className="space-y-2 mb-6">
               {debts.map((debt, index) => (
-                <li key={index} className="border p-4 rounded bg-gray-50">
+                <li
+                  key={index}
+                  className="border p-4 rounded bg-gray-800"
+                >
                   <p className="font-bold">{debt.name}</p>
                   <p>Balance: ${debt.balance.toFixed(2)}</p>
                   <p>Interest Rate: {debt.interestRate}%</p>
                   <p>Minimum Payment: ${debt.minPayment.toFixed(2)}</p>
-                  <button
-                    onClick={() => handleDeleteDebt(index)}
-                    className="mt-2 text-red-600 hover:underline text-sm"
-                  >
-                    Delete
-                  </button>
                 </li>
               ))}
             </ul>
@@ -152,7 +130,7 @@ export default function DebtPlanner() {
               <select
                 value={strategy}
                 onChange={(e) => setStrategy(e.target.value)}
-                className="border p-2 w-full"
+                className="border p-2 w-full text-black"
               >
                 <option value="snowball">Snowball (Lowest Balance First)</option>
                 <option value="avalanche">Avalanche (Highest Interest First)</option>
@@ -173,7 +151,7 @@ export default function DebtPlanner() {
             <h2 className="text-2xl font-semibold mb-4">Payoff Plan</h2>
             <ul className="space-y-2">
               {payoffPlan.map((debt, index) => (
-                <li key={index} className="border p-4 rounded bg-green-50">
+                <li key={index} className="border p-4 rounded bg-green-800">
                   <p className="font-bold">{debt.name}</p>
                   <p>Estimated Months to Payoff: {debt.monthsToPayoff}</p>
                 </li>
