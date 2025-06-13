@@ -2,8 +2,8 @@
 
 /* Set a nice background and text color for the entire site */
 body {
-  background-color: #f9fafb; /* light gray background */
-  color: #111827; /* dark text */
+   background-color: #111827; /* very dark gray / near black */
+  color: white;
   font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.6;
 }
@@ -27,4 +27,5 @@ h1, h2, h3, h4, h5, h6 {
 main {
   padding: 1rem;
 }
+
 
