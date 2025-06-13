@@ -14,7 +14,8 @@ export default function Home() {
 
       <Navbar />
 
-      <main className="max-w-2xl mx-auto p-6 text-center">
+     <main className="min-h-screen bg-gray-900 text-gray-100 flex flex-col justify-center items-center text-center p-8">
+
         <h1 className="text-4xl font-bold mb-6">Welcome to EyeOnFinance</h1>
         <p className="text-lg mb-8">
           See your money clearly — plan your paycheck, manage debt, and track your savings.
