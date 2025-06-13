@@ -64,7 +64,6 @@ export default function PaycheckCalculator() {
     }
 
     const annualIncome = payType === 'salary' ? annualSalary : grossPay * 26;
-
     const federalTax = calculateFederalTax(annualIncome) / 26;
     const stateTax = grossPay * (stateTaxRates[state] / 100);
     const k401Contribution = grossPay * (k401 / 100);
@@ -89,87 +88,84 @@ export default function PaycheckCalculator() {
       <Head>
         <title>EyeOnFinance - Paycheck Calculator</title>
         <meta name="description" content="Advanced paycheck calculator. See your money clearly with EyeOnFinance." />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="EyeOnFinance" />
-        <meta property="og:title" content="EyeOnFinance - Paycheck Calculator" />
-        <meta property="og:description" content="Advanced paycheck calculator. See your money clearly with EyeOnFinance." />
-        <meta property="og:image" content="/og-image.png" />
-        <meta property="og:url" content="https://my-finance-site-new.vercel.app/paycheck" />
       </Head>
-
       <Navbar />
+      <main className="bg-gray-900 text-white max-w-xl mx-auto p-6 min-h-screen">
+        <h1 className="text-3xl font-bold mb-6">Paycheck Calculator</h1>
 
-      <main className="max-w-xl mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-4 text-primary">Paycheck Calculator</h1>
-    <Link href="/" legacyBehavior>
-  <a className="text-primary underline text-sm mb-4 inline-block">← Back to Home</a>
-</Link>
-
-        <p className="text-lg mb-6 text-gray-600">
-          Enter your pay details below to calculate your net pay.
-        </p>
-
-        <div className="space-y-4 mb-6">
+        <div className="mb-4">
           <label className="block mb-1 font-semibold">Pay Type</label>
           <select
             value={payType}
             onChange={(e) => setPayType(e.target.value)}
-            className="border border-primary rounded p-2 w-full"
+            className="border p-2 w-full text-black"
           >
             <option value="salary">Salary</option>
             <option value="hourly">Hourly</option>
           </select>
+        </div>
 
-          {payType === 'salary' ? (
+        {payType === 'salary' ? (
+          <div className="mb-4">
+            <label className="block mb-1 font-semibold">Annual Salary ($)</label>
             <input
               type="number"
-              placeholder="Annual Salary ($)"
               value={annualSalary}
               onChange={(e) => setAnnualSalary(e.target.value)}
-              className="border border-primary rounded p-2 w-full"
+              className="border p-2 w-full text-black"
             />
-          ) : (
-            <>
+          </div>
+        ) : (
+          <>
+            <div className="mb-4">
+              <label className="block mb-1 font-semibold">Hourly Rate ($)</label>
               <input
                 type="number"
-                placeholder="Hourly Rate ($)"
                 value={hourlyRate}
                 onChange={(e) => setHourlyRate(e.target.value)}
-                className="border border-primary rounded p-2 w-full"
+                className="border p-2 w-full text-black"
               />
+            </div>
+            <div className="mb-4">
+              <label className="block mb-1 font-semibold">Hours Worked</label>
               <input
                 type="number"
-                placeholder="Hours Worked"
                 value={hoursWorked}
                 onChange={(e) => setHoursWorked(e.target.value)}
-                className="border border-primary rounded p-2 w-full"
+                className="border p-2 w-full text-black"
               />
+            </div>
+            <div className="mb-4">
+              <label className="block mb-1 font-semibold">Overtime Hours</label>
               <input
                 type="number"
-                placeholder="Overtime Hours"
                 value={overtimeHours}
                 onChange={(e) => setOvertimeHours(e.target.value)}
-                className="border border-primary rounded p-2 w-full"
+                className="border p-2 w-full text-black"
               />
-            </>
-          )}
+            </div>
+          </>
+        )}
 
+        <div className="mb-4">
           <label className="block mb-1 font-semibold">Filing Status</label>
           <select
             value={filingStatus}
             onChange={(e) => setFilingStatus(e.target.value)}
-            className="border border-primary rounded p-2 w-full"
+            className="border p-2 w-full text-black"
           >
             <option value="single">Single</option>
             <option value="married">Married Filing Jointly</option>
             <option value="head">Head of Household</option>
           </select>
+        </div>
 
+        <div className="mb-4">
           <label className="block mb-1 font-semibold">State</label>
           <select
             value={state}
             onChange={(e) => setState(e.target.value)}
-            className="border border-primary rounded p-2 w-full"
+            className="border p-2 w-full text-black"
           >
             {Object.keys(stateTaxRates).map((abbr) => (
               <option key={abbr} value={abbr}>
@@ -177,39 +173,44 @@ export default function PaycheckCalculator() {
               </option>
             ))}
           </select>
-
-          <input
-            type="number"
-            placeholder="401(k) Contribution %"
-            value={k401}
-            onChange={(e) => setK401(e.target.value)}
-            className="border border-primary rounded p-2 w-full"
-          />
-          <input
-            type="number"
-            placeholder="Other Deductions ($)"
-            value={otherDeductions}
-            onChange={(e) => setOtherDeductions(e.target.value)}
-            className="border border-primary rounded p-2 w-full"
-          />
-
-          <button
-            onClick={handleCalculate}
-            className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark w-full"
-          >
-            Calculate Net Pay
-          </button>
         </div>
 
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">401(k) Contribution %</label>
+          <input
+            type="number"
+            value={k401}
+            onChange={(e) => setK401(e.target.value)}
+            className="border p-2 w-full text-black"
+          />
+        </div>
+
+        <div className="mb-6">
+          <label className="block mb-1 font-semibold">Other Deductions ($)</label>
+          <input
+            type="number"
+            value={otherDeductions}
+            onChange={(e) => setOtherDeductions(e.target.value)}
+            className="border p-2 w-full text-black"
+          />
+        </div>
+
+        <button
+          onClick={handleCalculate}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
+        >
+          Calculate Net Pay
+        </button>
+
         {netPay !== null && (
-          <div className="mt-6 text-xl font-bold text-green-700">
+          <div className="mt-6 text-xl font-semibold">
             Net Pay: ${netPay}
           </div>
         )}
       </main>
-
       <Footer />
     </>
   );
 }
+
 
