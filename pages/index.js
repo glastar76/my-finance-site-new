@@ -8,16 +8,16 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>EyeOnFinance - See Your Money Clearly</title>
-        <meta name="description" content="Plan your paycheck, track debt, and reach your savings goals with EyeOnFinance." />
+        <title>EyeOnFinance - Home</title>
+        <meta name="description" content="See your money clearly. EyeOnFinance helps you plan your finances with clarity." />
       </Head>
 
       <Navbar />
 
-      <main className="max-w-3xl mx-auto p-6 text-center text-white">
+      <main className="max-w-2xl mx-auto p-6 text-center">
         <h1 className="text-4xl font-bold mb-6">Welcome to EyeOnFinance</h1>
         <p className="text-lg mb-8">
-          Plan your paycheck, track debt, and reach your savings goals — all in one place.
+          See your money clearly — plan your paycheck, manage debt, and track your savings.
         </p>
 
         <div className="flex flex-col space-y-4">
@@ -28,13 +28,13 @@ export default function Home() {
           </Link>
 
           <Link href="/debt-planner" legacyBehavior>
-            <a className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700">
+            <a className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">
               Go to Debt Planner
             </a>
           </Link>
 
           <Link href="/savings-goals" legacyBehavior>
-            <a className="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700">
+            <a className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">
               Go to Savings Goals
             </a>
           </Link>
