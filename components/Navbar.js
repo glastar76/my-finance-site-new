@@ -1,32 +1,21 @@
-// components/Navbar.jsx
+// components/Navbar.js
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 export default function Navbar() {
-  const router = useRouter();
-
-  const linkClass = (path) =>
-    `text-white hover:text-teal-300 px-3 py-2 ${
-      router.pathname === path ? 'border-b-2 border-teal-300 font-bold' : ''
-    }`;
-
   return (
-    <nav className="bg-gray-900 text-white py-4 mb-6 shadow-md">
-      <div className="max-w-5xl mx-auto px-4 flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold text-teal-400">
+    <nav className="bg-primary text-white px-6 py-4 shadow">
+      <div className="flex justify-between items-center max-w-5xl mx-auto">
+        <Link href="/" className="text-2xl font-bold">
           EyeOnFinance
         </Link>
-        <div className="flex space-x-4">
-          <Link href="/" className={linkClass('/')}>
-            Home
+        <div className="flex space-x-6">
+          <Link href="/paycheck" className="hover:text-primary-light">
+            Paycheck
           </Link>
-          <Link href="/paycheck" className={linkClass('/paycheck')}>
-            Paycheck Calculator
-          </Link>
-          <Link href="/debt-planner" className={linkClass('/debt-planner')}>
+          <Link href="/debt-planner" className="hover:text-primary-light">
             Debt Planner
           </Link>
-          <Link href="/savings-goals" className={linkClass('/savings-goals')}>
+          <Link href="/savings-goals" className="hover:text-primary-light">
             Savings Goals
           </Link>
         </div>
