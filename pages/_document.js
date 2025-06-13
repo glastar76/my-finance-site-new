@@ -9,9 +9,12 @@ export default function Document() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="index, follow" />
         <meta name="description" content="See your money clearly. EyeOnFinance helps you plan your finances with clarity." />
+        <meta property="og:title" content="EyeOnFinance - See your money clearly" />
+        <meta property="og:description" content="Plan your paycheck, track debt, and reach your savings goals." />
         <meta property="og:image" content="/og-image.png" />
+        <meta property="og:url" content="https://my-finance-site-new.vercel.app" />
       </Head>
-      <body className="bg-background text-text">
+      <body className="bg-gray-900 text-white">
         <Main />
         <NextScript />
       </body>
