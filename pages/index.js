@@ -23,7 +23,7 @@ export default function Home() {
 
         <div className="flex flex-col space-y-4">
           <Link href="/paycheck" legacyBehavior>
-            <a className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">
+         
               Go to Paycheck Calculator
             </a>
           </Link>
