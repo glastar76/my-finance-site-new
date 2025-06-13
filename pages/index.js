@@ -13,8 +13,7 @@ export default function Home() {
       </Head>
 
       <Navbar />
-
-     <main className="min-h-screen bg-gray-900 text-gray-100 flex flex-col justify-center items-center text-center p-8">
+    <main className="bg-gray-900 text-white min-h-screen p-6">
 
         <h1 className="text-4xl font-bold mb-6">Welcome to EyeOnFinance</h1>
         <p className="text-lg mb-8">
