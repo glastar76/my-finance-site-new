@@ -1,31 +1,23 @@
-/* styles/global.css */
+/* styles/globals.css */
 
-/* Set a nice background and text color for the entire site */
 body {
-   background-color: #111827; /* very dark gray / near black */
-  color: white;
-  font-family: 'Inter', system-ui, sans-serif;
-  line-height: 1.6;
+  background-color: #111827; /* dark gray */
+  color: #ffffff; /* white text */
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Optional: style links site-wide */
 a {
+  color: #3b82f6; /* blue-500 */
   text-decoration: none;
-  color: #2563eb; /* Tailwind blue-600 */
 }
 
 a:hover {
-  color: #1d4ed8; /* Tailwind blue-700 */
+  color: #2563eb; /* blue-600 */
 }
 
-/* Optional: give headings a bit more weight */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
+button {
+  cursor: pointer;
 }
-
-/* Optional: add some spacing to the main content */
-main {
-  padding: 1rem;
-}
-
 
