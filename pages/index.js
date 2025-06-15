@@ -17,30 +17,32 @@ export default function Home() {
         <h1 className="text-4xl font-bold mb-6">Welcome to EyeOnFinance</h1>
         <p className="text-lg mb-10">See your money clearly. Plan your finances with clarity.</p>
 
-        {/* ✅ Vertical Button List with Spacing */}
-        <div className="flex flex-col items-center space-y-4 mb-10">
-          <Link href="/paycheck" legacyBehavior>
-            <a className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded w-64 text-center">
+        {/* Each link is stacked vertically */}
+        <div className="flex flex-col items-center space-y-4 mb-10 w-full">
+          <Link href="/paycheck">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded w-64">
               Go to Paycheck Calculator
-            </a>
+            </button>
           </Link>
-          <Link href="/debt-planner" legacyBehavior>
-            <a className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded w-64 text-center">
+          <Link href="/debt-planner">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded w-64">
               Go to Debt Planner
-            </a>
+            </button>
           </Link>
-          <Link href="/savings-goals" legacyBehavior>
-            <a className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded w-64 text-center">
+          <Link href="/savings-goals">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded w-64">
               Go to Savings Goals
-            </a>
+            </button>
           </Link>
         </div>
 
+        {/* Copyright line moved outside footer */}
         <p className="text-sm text-gray-400 mt-4">
           © 2025 EyeOnFinance by Gregory Starks. All rights reserved.
         </p>
       </main>
 
+      {/* Only one Footer here */}
       <Footer />
     </>
   );
