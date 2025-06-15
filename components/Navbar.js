@@ -11,9 +11,9 @@ export default function Navbar() {
 
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-6">
-          <Link href="/paycheck" className="hover:text-blue-400">Paycheck</Link>
-          <Link href="/debt-planner" className="hover:text-blue-400">Debt Planner</Link>
-          <Link href="/savings-goals" className="hover:text-blue-400">Savings Goals</Link>
+          <Link href="/paycheck" className="hover:text-blue-400"> Paycheck </Link>
+          <Link href="/debt-planner" className="hover:text-blue-400"> Debt Planner </Link>
+          <Link href="/savings-goals" className="hover:text-blue-400"> Savings Goals </Link>
         </div>
 
         {/* Mobile Button */}
