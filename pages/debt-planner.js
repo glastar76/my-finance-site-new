@@ -22,7 +22,6 @@ export default function DebtPlanner() {
     };
 
     setDebts([...debts, newDebt]);
-
     setDebtName('');
     setBalance('');
     setInterestRate('');
@@ -31,10 +30,9 @@ export default function DebtPlanner() {
 
   const calculatePayoffPlan = () => {
     let debtsCopy = [...debts];
-
     if (strategy === 'snowball') {
       debtsCopy.sort((a, b) => a.balance - b.balance);
-    } else if (strategy === 'avalanche') {
+    } else {
       debtsCopy.sort((a, b) => b.interestRate - a.interestRate);
     }
 
@@ -45,7 +43,6 @@ export default function DebtPlanner() {
       while (remainingBalance > 0) {
         const monthlyInterest = (debt.interestRate / 100 / 12) * remainingBalance;
         const payment = Math.min(debt.minPayment, remainingBalance + monthlyInterest);
-
         remainingBalance = remainingBalance + monthlyInterest - payment;
         months++;
         if (months > 600) break;
@@ -65,58 +62,37 @@ export default function DebtPlanner() {
       <Head>
         <title>EyeOnFinance - Debt Planner</title>
       </Head>
-
       <Navbar />
-
-      <main className="max-w-xl mx-auto p-4 text-white">
+      <main className="min-h-screen bg-[#0f172a] text-white flex flex-col items-center justify-start px-4 py-10">
         <h1 className="text-3xl font-bold mb-4">Debt Planner</h1>
+        <p className="text-lg mb-6">Enter your debts and choose a payoff strategy.</p>
 
-        <div className="space-y-4 mb-6">
-          <input
-            type="text"
-            placeholder="Debt Name"
-            value={debtName}
-            onChange={(e) => setDebtName(e.target.value)}
-            className="border p-2 w-full"
-          />
-          <input
-            type="number"
-            placeholder="Balance ($)"
-            value={balance}
-            onChange={(e) => setBalance(e.target.value)}
-            className="border p-2 w-full"
-          />
-          <input
-            type="number"
-            placeholder="Interest Rate (%)"
-            value={interestRate}
-            onChange={(e) => setInterestRate(e.target.value)}
-            className="border p-2 w-full"
-          />
-          <input
-            type="number"
-            placeholder="Minimum Payment ($)"
-            value={minPayment}
-            onChange={(e) => setMinPayment(e.target.value)}
-            className="border p-2 w-full"
-          />
-          <button
-            onClick={handleAddDebt}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
-          >
+        <div className="w-full max-w-md space-y-4">
+          <input type="text" placeholder="Debt Name" value={debtName} onChange={(e) => setDebtName(e.target.value)} className="w-full p-2 rounded bg-white text-black" />
+          <input type="number" placeholder="Balance ($)" value={balance} onChange={(e) => setBalance(e.target.value)} className="w-full p-2 rounded bg-white text-black" />
+          <input type="number" placeholder="Interest Rate (%)" value={interestRate} onChange={(e) => setInterestRate(e.target.value)} className="w-full p-2 rounded bg-white text-black" />
+          <input type="number" placeholder="Minimum Payment ($)" value={minPayment} onChange={(e) => setMinPayment(e.target.value)} className="w-full p-2 rounded bg-white text-black" />
+
+          <button onClick={handleAddDebt} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full">
             Add Debt
+          </button>
+
+          <select value={strategy} onChange={(e) => setStrategy(e.target.value)} className="w-full p-2 rounded bg-white text-black">
+            <option value="snowball">Snowball (Lowest Balance First)</option>
+            <option value="avalanche">Avalanche (Highest Interest First)</option>
+          </select>
+
+          <button onClick={calculatePayoffPlan} className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full">
+            Calculate Payoff Plan
           </button>
         </div>
 
         {debts.length > 0 && (
-          <>
-            <h2 className="text-2xl font-semibold mb-4">Your Debts</h2>
-            <ul className="space-y-2 mb-6">
+          <div className="mt-8 w-full max-w-md">
+            <h2 className="text-xl font-semibold mb-4">Your Debts</h2>
+            <ul className="space-y-2">
               {debts.map((debt, index) => (
-                <li
-                  key={index}
-                  className="border p-4 rounded bg-gray-800"
-                >
+                <li key={index} className="bg-gray-800 p-4 rounded">
                   <p className="font-bold">{debt.name}</p>
                   <p>Balance: ${debt.balance.toFixed(2)}</p>
                   <p>Interest Rate: {debt.interestRate}%</p>
@@ -124,47 +100,27 @@ export default function DebtPlanner() {
                 </li>
               ))}
             </ul>
-
-            <div className="mb-4">
-              <label className="block mb-1 font-semibold">Payoff Strategy</label>
-              <select
-                value={strategy}
-                onChange={(e) => setStrategy(e.target.value)}
-                className="border p-2 w-full text-black"
-              >
-                <option value="snowball">Snowball (Lowest Balance First)</option>
-                <option value="avalanche">Avalanche (Highest Interest First)</option>
-              </select>
-            </div>
-
-            <button
-              onClick={calculatePayoffPlan}
-              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full mb-6"
-            >
-              Calculate Payoff Plan
-            </button>
-          </>
+          </div>
         )}
 
         {payoffPlan.length > 0 && (
-          <>
-            <h2 className="text-2xl font-semibold mb-4">Payoff Plan</h2>
+          <div className="mt-8 w-full max-w-md">
+            <h2 className="text-xl font-semibold mb-4">Payoff Plan</h2>
             <ul className="space-y-2">
               {payoffPlan.map((debt, index) => (
-                <li key={index} className="border p-4 rounded bg-green-800">
+                <li key={index} className="bg-green-800 p-4 rounded">
                   <p className="font-bold">{debt.name}</p>
                   <p>Estimated Months to Payoff: {debt.monthsToPayoff}</p>
                 </li>
               ))}
             </ul>
-
-            <div className="mt-6 text-xl font-bold">
-              Total Months to Debt-Free:{' '}
-              {Math.max(...payoffPlan.map((d) => d.monthsToPayoff))}
-            </div>
-          </>
+          </div>
         )}
       </main>
+      <Footer />
+    </>
+  );
+}
 
       <Footer />
     </>
