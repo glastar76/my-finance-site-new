@@ -37,9 +37,7 @@ export default function Home() {
         </div>
 
         {/* Copyright line moved outside footer */}
-        <p className="text-sm text-gray-400 mt-4">
-          © 2025 EyeOnFinance by Gregory Starks. All rights reserved.
-        </p>
+     
       </main>
 
       {/* Only one Footer here */}
