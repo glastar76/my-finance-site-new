@@ -89,7 +89,6 @@ export default function PaycheckCalculator() {
         <title>EyeOnFinance - Paycheck Calculator</title>
         <meta name="description" content="Advanced paycheck calculator. See your money clearly with EyeOnFinance." />
       </Head>
-      <Navbar />
       <main className="bg-gray-900 text-white max-w-xl mx-auto p-6 min-h-screen">
         <h1 className="text-3xl font-bold mb-6">Paycheck Calculator</h1>
 
