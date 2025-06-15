@@ -1,4 +1,3 @@
-// pages/index.js
 import Head from 'next/head';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -9,30 +8,38 @@ export default function Home() {
     <>
       <Head>
         <title>EyeOnFinance - Home</title>
-        <meta name="description" content="See your money clearly. Plan your finances with clarity." />
       </Head>
 
       <Navbar />
 
-      <main className="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen text-center px-4">
-        <div className="space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold">Welcome to EyeOnFinance</h1>
-          <p className="text-lg md:text-xl">See your money clearly. Plan your finances with clarity.</p>
+      <main className="min-h-screen bg-[#0f172a] text-white flex flex-col items-center justify-center px-4 text-center">
+        <h1 className="text-4xl font-bold mb-4">Welcome to EyeOnFinance</h1>
+        <p className="text-lg mb-6">See your money clearly. Plan your finances with clarity.</p>
 
-          <div className="flex flex-col space-y-4 w-full max-w-sm">
-            <Link href="/paycheck" legacyBehavior>
-              <a className="bg-blue-700 text-white py-3 rounded hover:bg-blue-800 text-lg font-semibold">
-                Go to Paycheck Calculator
-              </a>
-            </Link>
-            <Link href="/debt-planner" legacyBehavior>
-              <a className="bg-blue-700 text-white py-3 rounded hover:bg-blue-800 text-lg font-semibold">
-                Go to Debt Planner
-              </a>
-            </Link>
-            <Link href="/savings-goals" legacyBehavior>
-              <a className="bg-blue-700 text-white py-3 rounded hove
+        <div className="space-y-4 mb-6">
+          <Link href="/paycheck" legacyBehavior>
+            <a className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded block w-60 mx-auto">
+              Go to Paycheck Calculator
+            </a>
+          </Link>
+          <Link href="/debt-planner" legacyBehavior>
+            <a className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded block w-60 mx-auto">
+              Go to Debt Planner
+            </a>
+          </Link>
+          <Link href="/savings-goals" legacyBehavior>
+            <a className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded block w-60 mx-auto">
+              Go to Savings Goals
+            </a>
+          </Link>
+        </div>
 
+        <p className="text-sm text-gray-300">© 2025 EyeOnFinance by Gregory Starks. All rights reserved.</p>
+      </main>
 
+      <Footer />
+    </>
+  );
+}
 
 
