@@ -8,17 +8,17 @@ export default function Navbar() {
         <div className="flex space-x-4">
           <Link href="/paycheck">
             <span className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white cursor-pointer text-sm font-medium">
-              Paycheck
+               Paycheck 
             </span>
           </Link>
           <Link href="/debt-planner">
             <span className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white cursor-pointer text-sm font-medium">
-              Debt Planner
+               Debt Planner 
             </span>
           </Link>
           <Link href="/savings-goals">
             <span className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white cursor-pointer text-sm font-medium">
-              Savings Goals
+               Savings Goals 
             </span>
           </Link>
         </div>
