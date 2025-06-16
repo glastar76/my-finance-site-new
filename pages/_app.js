@@ -7,8 +7,6 @@ export default function App({ Component, pageProps }) {
 import Script from 'next/script';
 
 <Head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2477753161296870"
-     crossorigin="anonymous"></script>
   <script async src={`https://www.googletagmanager.com/gtag/js?id=G-VF040WZY3W`}></script>
   <script dangerouslySetInnerHTML={{
     __html: `
