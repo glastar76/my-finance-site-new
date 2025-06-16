@@ -41,8 +41,6 @@ export default function SavingsGoals() {
   return (
     <>
       <Head>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2477753161296870"
-     crossorigin="anonymous"></script>
         <title>EyeOnFinance - Savings Goals</title>
       </Head>
 
