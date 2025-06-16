@@ -60,6 +60,8 @@ export default function DebtPlanner() {
   return (
     <>
       <Head>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2477753161296870"
+     crossorigin="anonymous"></script>
         <title>EyeOnFinance - Debt Planner</title>
       </Head>
       <Navbar />
