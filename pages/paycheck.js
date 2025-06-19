@@ -7,8 +7,8 @@ import Footer from '../components/Footer';
 const states = [
   { name: 'Alabama', tax: 0.05 },
   { name: 'California', tax: 0.093 },
-  { name: 'Texas', tax: 0.00 },
-  // Add all states as needed...
+  { name: 'Texas', tax: 0.0 },
+  // Add more states as needed...
 ];
 
 export default function PaycheckCalculator() {
@@ -23,17 +23,15 @@ export default function PaycheckCalculator() {
     const gross =
       payType === 'salary'
         ? parseFloat(rate) / 12
-        : (parseFloat(rate) * parseFloat(hours)) +
-          (parseFloat(rate) * 1.5 * parseFloat(overtime));
+        : parseFloat(rate) * parseFloat(hours) +
+          parseFloat(rate) * 1.5 * parseFloat(overtime);
 
     const stateTaxRate = states.find((s) => s.name === state)?.tax || 0;
-    const federalTax = 0.12; // Example flat 12%
+    const federalTax = 0.12;
     const ssTax = 0.062;
     const medicareTax = 0.0145;
 
-    const deductions =
-      gross * (stateTaxRate + federalTax + ssTax + medicareTax);
-
+    const deductions = gross * (stateTaxRate + federalTax + ssTax + medicareTax);
     const net = gross - deductions;
 
     setResult({
@@ -46,16 +44,13 @@ export default function PaycheckCalculator() {
   return (
     <>
       <Head>
-
         <title>EyeOnFinance - Paycheck Calculator</title>
       </Head>
       <Navbar />
 
       <main className="min-h-screen bg-[#0f172a] text-white flex flex-col items-center justify-center px-4">
         <div className="max-w-xl w-full bg-[#1e293b] p-6 rounded-lg shadow-lg">
-          <h1 className="text-3xl font-bold mb-4 text-center">
-            Paycheck Calculator
-          </h1>
+          <h1 className="text-3xl font-bold mb-4 text-center">Paycheck Calculator</h1>
 
           <div className="space-y-4">
             <div>
@@ -117,4 +112,29 @@ export default function PaycheckCalculator() {
                   <option key={i} value={s.name}>
                     {s.name}
                   </option>
+                ))}
+              </select>
+            </div>
 
+            <button
+              onClick={calculate}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded mt-4"
+            >
+              Calculate
+            </button>
+
+            {result && (
+              <div className="mt-6 text-center">
+                <p>💰 Gross Pay: ${result.gross}</p>
+                <p>📉 Deductions: ${result.deductions}</p>
+                <p>🤑 Net Pay: ${result.net}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </>
+  );
+}
