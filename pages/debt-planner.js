@@ -122,8 +122,4 @@ export default function DebtPlanner() {
   );
 }
 
-      <Footer />
-    </>
-  );
-}
-
+     
